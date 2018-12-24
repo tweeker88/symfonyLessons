@@ -60,6 +60,11 @@
         }
     },
     "require-dev": {
-        "sensiolabs/security-checker": "^5.0"
+        "easycorp/easy-log-handler": "^1.0.7",
+        "sensiolabs/security-checker": "^5.0",
+        "symfony/debug-bundle": "*",
+        "symfony/monolog-bundle": "^3.0",
+        "symfony/profiler-pack": "*",
+        "symfony/var-dumper": "*"
     }
 }
