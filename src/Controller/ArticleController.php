@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,17 +28,23 @@ class ArticleController extends AbstractController
      * @Route("/news/{slug}", name="article_show")
      * @return Response
      * @var string
+     * @var MarkdownInterface
      */
-    public function show($slug)
+    public function show($slug, MarkdownInterface $markdown)
     {
+        $articleContent = " **negrita** [enlace](https://baconipsum.com/)";
+
+        $articleContent = $markdown->transform($articleContent);
+
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
             'Woohoo! I\'m going on an all-asteroid diet!',
             'I like bacon too! Buy some from my site! bakinsomebacon.com',
         ];
 
-        return $this->render('article/show.html.twig',[
+        return $this->render('article/show.html.twig', [
             'title' => ucwords(str_replace('-', ' ', $slug)),
+            'articleContent' => $articleContent,
             'comments' => $comments,
             'slug' => $slug
         ]);
@@ -50,7 +57,7 @@ class ArticleController extends AbstractController
      */
     public function toggleArticleHeart($slug)
     {
-        return new JsonResponse(['hearts' => rand(5,100)]);
+        return new JsonResponse(['hearts' => rand(5, 100)]);
     }
 
 
