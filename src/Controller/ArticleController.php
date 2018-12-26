@@ -5,6 +5,7 @@ namespace App\Controller;
 use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,11 +31,18 @@ class ArticleController extends AbstractController
      * @var string
      * @var MarkdownInterface
      */
-    public function show($slug, MarkdownInterface $markdown)
+    public function show($slug, MarkdownInterface $markdown, AdapterInterface $cache)
     {
-        $articleContent = " **negrita** [enlace](https://baconipsum.com/)";
+        $articleContent = " **negrita** **testCache** [enlace](https://baconipsum.com/)";
 
-        $articleContent = $markdown->transform($articleContent);
+        $item = $cache->getItem('markdown_' . md5($articleContent));
+
+        if(!$item->isHit()){
+            $item->set($markdown->transform($articleContent));
+            $cache->save($item);
+        }
+
+        $articleContent = $item->get();
 
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
