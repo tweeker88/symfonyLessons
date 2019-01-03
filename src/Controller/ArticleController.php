@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\MarkdownHelper;
 use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,7 @@ class ArticleController extends AbstractController
      * @var string
      * @var MarkdownInterface
      */
-    public function show($slug, MarkdownInterface $markdown, AdapterInterface $cache)
+    public function show($slug, MarkdownHelper $markdownHelper)
     {
 
         $articleContent = <<<EOF
@@ -52,14 +53,7 @@ fugiat.
 EOF;
 
 
-        $item = $cache->getItem('markdown_' . md5($articleContent));
-
-        if(!$item->isHit()){
-            $item->set($markdown->transform($articleContent));
-            $cache->save($item);
-        }
-
-        $articleContent = $item->get();
+        $articleContent = $markdownHelper->parse($articleContent);
 
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
