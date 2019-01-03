@@ -13,16 +13,22 @@ class MarkdownHelper
     private $markdown;
     private $cache;
     private $logger;
+    private $isDebug;
 
-    public function __construct(MarkdownInterface $markdown, AdapterInterface $cache, LoggerInterface $markdownLogger)
+    public function __construct(MarkdownInterface $markdown, AdapterInterface $cache, LoggerInterface $markdownLogger, bool $isDebug)
     {
         $this->markdown = $markdown;
         $this->cache = $cache;
         $this->logger = $markdownLogger;
+        $this->isDebug = $isDebug;
     }
 
     public function parse(string $source): string
     {
+        if ($this->isDebug){
+            return $this->markdown->transform($source);
+        }
+
         if(stripos($source, 'bacon') !== null){
             $this->logger->info('They are talking about bacon again!');
         }
