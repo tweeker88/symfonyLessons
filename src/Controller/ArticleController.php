@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\MarkdownHelper;
 use Michelf\MarkdownInterface;
+use Nexy\Slack\Client;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
@@ -17,6 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ArticleController extends AbstractController
 {
+
+    private $slack;
+
+    public function __construct(Client $slack)
+    {
+        $this->slack = $slack;
+    }
+
     /**
      * @Route("/", name="app_homepage")
      * @return Response
