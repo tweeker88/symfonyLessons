@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\MarkdownHelper;
+use App\Service\SlackClient;
 use Michelf\MarkdownInterface;
 use Nexy\Slack\Client;
 use Psr\Log\LoggerInterface;
@@ -41,8 +42,13 @@ class ArticleController extends AbstractController
      * @var string
      * @var MarkdownInterface
      */
-    public function show($slug, MarkdownHelper $markdownHelper, bool $isDebug)
+    public function show($slug, MarkdownHelper $markdownHelper, SlackClient $slack)
     {
+
+        if ($slug === 'khaaaaaan') {
+            $slack->sendMessage('Kahn', 'Ah, Kirk, my old friend...');
+        }
+
         $articleContent = <<<EOF
 Spicy **jalapeno bacon** ipsum dolor amet veniam shank in dolore. Ham hock nisi landjaeger cow,
 lorem proident [beef ribs](https://baconipsum.com/) aute enim veniam ut cillum pork chuck picanha. Dolore reprehenderit
