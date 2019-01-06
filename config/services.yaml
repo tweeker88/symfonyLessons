@@ -6,6 +6,7 @@
 parameters:
     cache_adapter: cache.adapter.apcu
 
+    locale: 'ru'
 
 services:
     # default configuration for services in *this* file
