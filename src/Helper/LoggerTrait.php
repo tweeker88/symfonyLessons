@@ -13,13 +13,14 @@ trait LoggerTrait
 
     /**
      * @required
+     * @param LoggerInterface $logger
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger) :void
     {
         $this->logger = $logger;
     }
 
-    private function logInfo(string $message, array $context = [])
+    private function logInfo(string $message, array $context = []) :void
     {
         if ($this->logger) {
             $this->logger->info($message, $context);
