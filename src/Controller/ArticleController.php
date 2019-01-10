@@ -46,12 +46,8 @@ class ArticleController extends AbstractController
      * @var string
      * @var MarkdownInterface
      */
-    public function show(string $slug, SlackClient $slack, EntityManagerInterface $em)
+    public function show(Article $article, SlackClient $slack, EntityManagerInterface $em)
     {
-
-        if ($slug === 'khaaaaaan') {
-            $slack->sendMessage('Kahn', 'Ah, Kirk, my old friend...');
-        }
 
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
@@ -59,16 +55,6 @@ class ArticleController extends AbstractController
             'I like bacon too! Buy some from my site! bakinsomebacon.com',
         ];
 
-        $repository = $em->getRepository(Article::class);
-
-        /**
-         * @var Article $article
-         */
-        $article = $repository->findOneBy(['slug' => $slug]);
-
-        if(!$article){
-            throw $this->createNotFoundException(sprintf('No article for slug "%s"', $slug));
-        }
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'comments' => $comments,
