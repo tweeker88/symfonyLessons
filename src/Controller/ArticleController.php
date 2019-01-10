@@ -46,7 +46,7 @@ class ArticleController extends AbstractController
      * @var string
      * @var MarkdownInterface
      */
-    public function show(Article $article, SlackClient $slack, EntityManagerInterface $em)
+    public function show(Article $article)
     {
 
         $comments = [
