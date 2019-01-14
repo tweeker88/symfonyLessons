@@ -14,27 +14,12 @@ class ArticleAdminController extends AbstractController
 
 
     /**
-     * @Route("/admin/article/new/{slug}")
+     * @Route("/admin/article/new/")
      */
-    public function new(EntityManagerInterface $em,string $slug)
+    public function new()
     {
-        $article = new Article();
 
-        $article->setTitle('new Article')
-            ->setSlug($slug . random_int(1,999))
-            ->setContent('new Content');
-
-        if (random_int(1, 10) > 2) {
-            $article->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))));
-        }
-
-        $article->setAuthor('Максим Теплов')
-            ->setHeartCount(random_int(1,100))
-            ->setImageFilename('asteroid.jpeg');
-
-        $em->persist($article);
-        $em->flush();
-
+        die('todo');
 
         return new Response(sprintf(
             'Hiya! New Article id: #%d slug: %s',
