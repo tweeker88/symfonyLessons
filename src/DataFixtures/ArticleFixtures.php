@@ -26,7 +26,6 @@ class ArticleFixtures extends BaseFixtures
     {
         $this->createMany(Article::class, 10, function (Article $article, $count) {
             $article->setTitle($this->faker->randomElement(self::$articleTitles))
-                ->setSlug($this->faker->slug)
                 ->setContent(<<<EOF
             capicola biltong frankfurter boudin cupim officia . Exercitation fugiat consectetur ham . Adipisicing
 picanha shank et filet mignon pork belly ut ullamco . Irure velit turducken ground round doner incididunt
