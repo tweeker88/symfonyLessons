@@ -66,9 +66,12 @@ class ArticleController extends AbstractController
      * @var $slug
      * @return JsonResponse
      */
-    public function toggleArticleHeart($slug)
+    public function toggleArticleHeart(Article $article, EntityManagerInterface $em)
     {
-        return new JsonResponse(['hearts' => rand(5, 100)]);
+        $article->incrementHeartCount();
+        $em->flush();
+
+        return new JsonResponse(['hearts' => $article->getHeartCount()]);
     }
 
 
