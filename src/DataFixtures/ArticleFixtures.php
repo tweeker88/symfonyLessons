@@ -45,21 +45,6 @@ EOF
             $article->setAuthor($this->faker->randomElement(self::$articleAuthors))
                 ->setHeartCount($this->faker->numberBetween(5, 100))
                 ->setImageFilename($this->faker->randomElement(self::$articleImages));
-
-            $commentOne = new Comment();
-            $commentOne->setAuthorName('Константин')
-                ->setContent('Супер контент, ставлю класс!')
-                ->setArticle($article);
-
-            $manager->persist($commentOne);
-
-
-            $commentTwo = new Comment();
-            $commentTwo->setAuthorName('Кирилл')
-                ->setContent('Отличный сайт, благодаря нему я вылечил угри')
-                ->setArticle($article);
-
-            $manager->persist($commentTwo);
         });
         $manager->flush();
     }
