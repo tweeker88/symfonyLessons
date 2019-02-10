@@ -68,6 +68,9 @@
                                         <div class="comment-container d-inline-block pl-3 align-top">
                                             <span class="commenter-name">{{ comment.authorName }}</span>
                                             <small>опубликовано {{ comment.createdAt|ago }}</small>
+                                            {% if comment.isDeleted %}
+                                            <span class="fa fa-close" style="color: red;"></span> Удалён
+                                            {% endif %}
                                             <br>
                                             <span class="comment">{{ comment.content }}</span>
                                             <p><a href="#">Reply</a></p>
