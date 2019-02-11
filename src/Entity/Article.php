@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\ArticleRepository;
+use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -166,7 +169,7 @@ class Article
     public function incrementHeartCount() :self
     {
 
-        $this->heartCount = $this->heartCount +1;
+        ++$this->heartCount;
 
         return $this;
     }
@@ -181,7 +184,9 @@ class Article
 
     public function nonDeletedComments(): Collection
     {
+        $crt = CommentRepository::createNonDeletedCriteria();
 
+        return $this->comments->matching($crt);
     }
 
     public function addComment(Comment $comment): self
