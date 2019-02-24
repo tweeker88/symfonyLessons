@@ -21,9 +21,11 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
-     /**
-      * @return Article[]
-      */
+    /**
+     * @return Article[]
+     *
+     * @throws \Doctrine\ORM\Query\QueryException
+     */
 
     public function findAllPublishedOrderedByNewest() :array
     {
@@ -31,6 +33,8 @@ class ArticleRepository extends ServiceEntityRepository
             ->addCriteria(CommentRepository::createNonDeletedCriteria());
 
         return $this->addIsPublishedQueryBuilder()
+            ->leftJoin('a.tags', 't')
+            ->addSelect('t')
             ->orderBy('a.publishedAt', 'DESC')
             ->getQuery()
             ->getResult();
