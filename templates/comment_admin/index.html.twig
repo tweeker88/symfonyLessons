@@ -12,7 +12,8 @@
                     <input type="text"
                            name="q"
                            class="form-control"
-                           placeholder="Search..."
+                           placeholder="Поиск..."
+                           value="{{app.request.query.get ('q')}}"
                     >
                     <div class="input-group-append">
                         <button type="submit"
@@ -49,6 +50,12 @@
                             {{ comment.createdAt|ago }}
                         </td>
                     </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                Ничего не найдено :(
+                            </td>
+                        </tr>
                 {% endfor %}
                 </tbody>
             </table>
