@@ -42,8 +42,6 @@ class CommentRepository extends ServiceEntityRepository
                 ->setParameter('term', '%' . $term . '%');
         }
 
-        return $qb->orderBy('c.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult();
+        return $qb->orderBy('c.createdAt', 'DESC');
     }
 }
