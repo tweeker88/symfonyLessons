@@ -14,7 +14,7 @@ abstract class BaseFixtures extends Fixture
     private $referencesIndex = [];
 
     /** @var ObjectManager $manager*/
-    private $manager;
+    protected $manager;
 
     /** @var Generator $faker*/
     protected $faker;
