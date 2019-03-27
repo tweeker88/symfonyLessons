@@ -15,10 +15,11 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class LoginFormAuthenticatorAuthenticator extends AbstractFormLoginAuthenticator
 {
-
+    use TargetPathTrait;
     /** @var UserRepository $userRepository */
     private $userRepository;
     /**
@@ -84,6 +85,7 @@ class LoginFormAuthenticatorAuthenticator extends AbstractFormLoginAuthenticator
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException('Кого ты обмануть пытаешься, дядя.');
         }
+
         return $this->userRepository->findOneBy(['email' => $credentials['email']]);
     }
 
@@ -94,6 +96,10 @@ class LoginFormAuthenticatorAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+            return new RedirectResponse($targetPath);
+        }
+
         return new RedirectResponse($this->router->generate('app_homepage'));
     }
 
