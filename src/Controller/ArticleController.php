@@ -7,6 +7,7 @@ use App\Repository\ArticleRepository;
 use App\Repository\CommentRepository;
 use App\Service\SlackClient;
 use Doctrine\ORM\EntityManagerInterface;
+use Faker\Provider\Base;
 use Michelf\MarkdownInterface;
 use Nexy\Slack\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ArticleController
  * @package App\Controller
  */
-class ArticleController extends AbstractController
+class ArticleController extends BaseController
 {
 
     private $slack;
@@ -30,7 +31,9 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/", name="app_homepage")
+     * @param ArticleRepository $repository
      * @return Response
+     * @throws \Doctrine\ORM\Query\QueryException
      */
     public function homepage(ArticleRepository $repository)
     {

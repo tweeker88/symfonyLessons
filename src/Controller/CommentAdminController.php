@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Repository\CommentRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -14,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  * @package App\Controller
  * @isGranted("ROLE_ADMIN")
  */
-class CommentAdminController extends AbstractController
+class CommentAdminController extends BaseController
 {
     /**
      * @Route("/admin/comment", name="comment_admin")
