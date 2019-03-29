@@ -22,10 +22,12 @@ class UserFixtures extends BaseFixtures
 
     public function loadData(ObjectManager $manager)
     {
-        $this->createManyInt(10, 'main_users', function ($i){
+        $this->createManyInt(10, 'main_users', function ($i) {
             $user = new User();
             $user->setEmail(sprintf('spacebar%d@example.com', $i));
             $user->setFirstName($this->faker->firstName);
+            $user->setSocialNetwork($this->faker->userName);
+
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'password'
@@ -33,7 +35,7 @@ class UserFixtures extends BaseFixtures
             return $user;
         });
 
-        $this->createManyInt(3, 'admin_users', function ($i){
+        $this->createManyInt(3, 'admin_users', function ($i) {
             $user = new User();
             $user->setEmail(sprintf('admin%d@spacebar.com', $i));
             $user->setFirstName($this->faker->firstName);
