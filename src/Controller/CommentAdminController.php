@@ -11,7 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
  * Class CommentAdminController
  * @package App\Controller
- * @isGranted("ROLE_ADMIN")
+ * @isGranted("ROLE_ADMIN_COMMENT")
  */
 class CommentAdminController extends BaseController
 {
