@@ -20,6 +20,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticatorAuthenticator
+                    - App\Security\ApiTokenAuthenticator
+                entry_point: App\Security\LoginFormAuthenticatorAuthenticator
             logout:
                 path: app_logout
             remember_me:
