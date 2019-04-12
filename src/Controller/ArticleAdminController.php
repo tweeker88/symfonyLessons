@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ArticleAdminController
  * @package App\Controller
- * @IsGranted("ROLE_ADMIN_ARTICLE")
  */
 class ArticleAdminController extends BaseController
 {
@@ -21,6 +20,7 @@ class ArticleAdminController extends BaseController
 
     /**
      * @Route("/admin/article/new/")
+     * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     public function new()
     {
@@ -32,5 +32,18 @@ class ArticleAdminController extends BaseController
             $article->getId(),
             $article->getSlug()
         ));
+    }
+
+    /**
+     * @Route("/admin/article/{id}/edit")
+     * @param Article $article
+     */
+    public function edit(Article $article)
+    {
+        if($article->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN_ARTICLE')){
+            throw $this->createAccessDeniedException('No access!');
+        }
+
+        dd($article);
     }
 }
