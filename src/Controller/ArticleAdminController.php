@@ -37,13 +37,13 @@ class ArticleAdminController extends BaseController
     /**
      * @Route("/admin/article/{id}/edit")
      * @param Article $article
+     * @IsGranted("MANAGE", subject="article")
      */
     public function edit(Article $article)
     {
-        if($article->getAuthor() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN_ARTICLE')){
-            throw $this->createAccessDeniedException('No access!');
-        }
-
+//        if(!$this->isGranted('MANAGE', $article)){
+//            throw $this->createAccessDeniedException('No access!');
+//        }
         dd($article);
     }
 }
