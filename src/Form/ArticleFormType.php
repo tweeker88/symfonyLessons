@@ -21,7 +21,10 @@ class ArticleFormType extends AbstractType
             ->add('content', TextType::class, [
                 'help' => 'Введите текст для статьи',
                 'label' => 'Контент'
-            ]);
+            ])
+        ->add('publishedAt', null,[
+            'widget' => 'single_text'
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
