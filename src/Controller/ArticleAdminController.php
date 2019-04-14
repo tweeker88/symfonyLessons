@@ -46,7 +46,9 @@ class ArticleAdminController extends BaseController
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute('app_homepage');
+            $this->addFlash('success', 'Поздравляю! Статья создана');
+
+            return $this->redirectToRoute('admin_article_list');
         }
 
         return $this->render('article_admin/new.html.twig', [
@@ -68,7 +70,7 @@ class ArticleAdminController extends BaseController
     }
 
     /**
-     * @Route("admin/article")
+     * @Route("admin/article", name="admin_article_list")
      * @param ArticleRepository $articleRepo
      * @return Response
      */
