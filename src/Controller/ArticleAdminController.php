@@ -36,11 +36,9 @@ class ArticleAdminController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            /** @var Article $article */
+            $article = $form->getData();
 
-            $article = new Article;
-            $article->setTitle($data['title']);
-            $article->setContent($data['content']);
             $article->setAuthor($this->getUser());
 
             $em->persist($article);
@@ -78,7 +76,7 @@ class ArticleAdminController extends BaseController
     {
         $articles = $articleRepo->findAll();
 
-        return $this->render('article_admin/list.html.twig',[
+        return $this->render('article_admin/list.html.twig', [
             'articles' => $articles
         ]);
     }
